@@ -1,7 +1,6 @@
 #include "i2c.h"
 #include <avr/io.h>
 #include <util/delay.h>
-#include <lcd.c>
 
 //Yo asigne el pin 0x02 como el En de la LCD
 //y el pin 0x01 como el pin RS de la LCD

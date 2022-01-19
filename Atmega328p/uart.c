@@ -1,5 +1,6 @@
 #include "uart.h"
 #define MAX_STR 50
+#define BAUD 9600
 /******************************************************************************************************************************/
 /*                                                Funciones privadas o internas de la libreria						*/
 /******************************************************************************************************************************/
@@ -31,12 +32,23 @@ ISR(USART_RX_vect){
 //en una funci�n, a 8bits,a 9600 baudios, sin bit de paridad
 //1 bit de parada
 /////////////////////////////////////////////////////
-void serial_begin(){
+/*void serial_begin(){
 	cli();
 	UCSR0A=0b00000000;
 	UCSR0B=0b10011000;	//habilitar interrupcion por recepcion / transmisi�n y recepci�n habilitados a 8 bits
 	UCSR0C=0b00000110;	//as�ncrono, sin bit de paridad, 1 bit de parada a 8 bits
 	UBRR0=51;			//para una velocidad de 9600 baudios con un //oscilador de 8Mhz
+        sei();
+}*/
+void serial_begin(){
+	cli();
+	float valor_UBBR0 = 0;
+	UCSR0A=0b00000010;	//el bit 1 (U2X0) se pone en uno para duplicar la velocidad y poder utilizar frecuencias desde 1MHz
+	UCSR0B=0b10011000;	//habilitar interrupcion por recepcion / transmisiÃ³n y recepciÃ³n habilitados a 8 bits
+	UCSR0C=0b00000110;	//asÃ­ncrono, sin bit de paridad, 1 bit de parada a 8 bits
+	valor_UBBR0 = F_CPU/(16.0*BAUD);	//Definir la constante BAUD al inicio del cÃ³digo
+        if(UCSR0A & (1<<U2X0)) valor_UBBR0 *= 2;
+	UBRR0=valor_UBBR0 - 1;
         sei();
 }
 ///////////////////////////////////////////////
