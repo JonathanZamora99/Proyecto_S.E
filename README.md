@@ -12,3 +12,6 @@ El proyecto consiste en un par de dispositivos que se encargarán de recibir por
 * Virtual Serial Ports Emulator
 
 ## Capturas:
+
+### Plataforma Thingspeak
+![github-small](https://github.com/JonathanZamora99/Proyecto_S.E_G4/blob/main/Capturas/Plataforma_Thingspeak.jpeg)
